@@ -2,15 +2,42 @@ package com.sarahehabm.orangerx.business;
 
 import android.content.Context;
 
+import com.sarahehabm.orangerx.model.User;
+
+import rx.Observer;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
+
 /**
  * Created by Sarah E. Mostafa on 12-Mar-17.
  */
 public class MainBusiness {
-    private static final String BASE_URL = "http://demo1043736.mockable.io";
+    private Services services;
 
-    public static void getUser(Context context, final OnUserRetrievedListener userRetrievedListener) {
-        String url = BASE_URL + "/getUser";
+    public MainBusiness(Services services) {
+        this.services = services;
+    }
 
-        //Execute method
+    public void getUser(Context context, final OnUserRetrievedListener userRetrievedListener) {
+        services.getApi()
+                .getUser()
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<User>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        userRetrievedListener.onUserRetrievedFailure();
+                    }
+
+                    @Override
+                    public void onNext(User user) {
+                        userRetrievedListener.onUserRetrievedSuccess(user);
+                    }
+                });
     }
 }

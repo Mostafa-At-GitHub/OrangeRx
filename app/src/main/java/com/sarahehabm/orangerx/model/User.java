@@ -1,11 +1,13 @@
 package com.sarahehabm.orangerx.model;
 
 import com.google.gson.Gson;
+import com.google.gson.annotations.SerializedName;
 
 /**
  * Created by Sarah E. Mostafa on 12-Mar-17.
  */
 public class User {
+    @SerializedName("3id")
     private int id;
     private String name;
     private String job_title;
