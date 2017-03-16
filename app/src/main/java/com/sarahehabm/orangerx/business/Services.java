@@ -1,7 +1,9 @@
 package com.sarahehabm.orangerx.business;
 
 
+import com.sarahehabm.orangerx.model.LocationList;
 import com.sarahehabm.orangerx.model.User;
+import com.sarahehabm.orangerx.model.UserList;
 
 import retrofit.RequestInterceptor;
 import retrofit.RestAdapter;
@@ -39,5 +41,11 @@ public class Services {
     public interface Apis {
         @GET("/getUser")
         Observable<User> getUser();
+
+        @GET("/getUserList")
+        Observable<UserList> getUserList();
+
+        @GET("/getLocation")
+        Observable<LocationList> getLocationList();
     }
 }
